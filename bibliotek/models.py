@@ -41,7 +41,7 @@ class Readers(models.Model):
     last_name = models.CharField(max_length=20, verbose_name='Фамилия')
     phone = models.BigIntegerField(verbose_name='Номер телефона')
     status = models.BooleanField(default=True, verbose_name='Статус читателя')
-    activ_books = models.ManyToManyField(Books, verbose_name='Активные книги')
+    activ_books = models.ManyToManyField(Books, blank=True, verbose_name='Активные книги')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
 

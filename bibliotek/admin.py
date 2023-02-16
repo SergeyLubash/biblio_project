@@ -9,7 +9,6 @@ class ReadersAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Readers, ReadersAdmin)
-
-admin.site.register(Author)
-# admin.site.register(Readers)
 admin.site.register(Books)
+admin.site.register(Author)
+

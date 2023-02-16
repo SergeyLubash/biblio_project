@@ -12,6 +12,6 @@ class ReadersForm(forms.ModelForm):
     def clean(self):
         activ_books = self.cleaned_data.get('activ_books')
         if activ_books.count() > 3:
-            raise ValidationError('Maximum three categories are allowed.')
+            raise ValidationError('It is possible to take only three books.')
 
         return self.cleaned_data
