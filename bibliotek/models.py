@@ -23,7 +23,7 @@ class Books(models.Model):
     number_pages = models.IntegerField(verbose_name='Кол-во станиц')
     author = models.ManyToManyField(Author, help_text='Выберите автора книги',
                                     verbose_name='Автор')
-    quantity = models.IntegerField(verbose_name='Кол-во книг в библиотеке')
+    quantity = models.IntegerField(blank=True, verbose_name='Кол-во книг в библиотеке')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
 
@@ -33,7 +33,7 @@ class Books(models.Model):
         ordering = ['title']
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
 
 
 class Readers(models.Model):
