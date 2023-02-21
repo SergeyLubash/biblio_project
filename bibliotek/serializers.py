@@ -1,64 +1,31 @@
 from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
 
 from bibliotek.models import Author, Books, Readers
-
-
-class AuthorCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        read_only_fields = ("id", "first_name", "last_name", "photo")
-        fields = "__all__"
 
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = "__all__"
-        read_only_fields = ("id", "first_name", "last_name", "photo")
-
-
-class AuthorListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        fields = "__all__"
-
-
-class BooksCreateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Books
-        read_only_fields = ("id", "title", "description", "number_pages", "author", "quantity")
-        fields = "__all__"
 
 
 class BooksSerializer(serializers.ModelSerializer):
+
+    author = SlugRelatedField(
+        slug_field='full_name', many=True, queryset=Author.objects.all()
+    )
+
     class Meta:
         model = Books
-        fields = "__all__"
-        read_only_fields = ("id", "title", "description", "number_pages", "author", "quantity")
-
-
-class BooksListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Books
-        fields = "__all__"
-
-
-class ReadersCreateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Readers
-        fields = "__all__"
+        fields = ('id', 'title', 'description', 'number_pages', 'author', 'quantity', 'created_at', 'updated_at')
 
 
 class ReadersSerializer(serializers.ModelSerializer):
+    activ_books = SlugRelatedField(
+        slug_field='title', many=True, queryset=Books.objects.all()
+    )
+
     class Meta:
         model = Readers
-        fields = "__all__"
-        # read_only_fields = ("id", "first_name", "last_name", "phone", "status", "activ_books")
-
-
-class ReadersListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Readers
-        fields = "__all__"
+        fields = ("id", "first_name", "last_name", "phone", "status", "activ_books", "created_at", "updated_at")

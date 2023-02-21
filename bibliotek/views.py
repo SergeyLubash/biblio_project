@@ -1,51 +1,19 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import viewsets
 
 from bibliotek.models import Author, Books, Readers
-from bibliotek.serializers import AuthorSerializer, BooksSerializer, BooksListSerializer, BooksCreateSerializer, \
-    AuthorCreateSerializer, AuthorListSerializer, ReadersCreateSerializer, ReadersListSerializer, ReadersSerializer
+from bibliotek.serializers import AuthorSerializer, BooksSerializer, ReadersSerializer
 
 
-class AuthorCreateView(generics.CreateAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorCreateSerializer
-
-
-class AuthorView(generics.RetrieveUpdateDestroyAPIView):
+class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
 
 
-class AuthorListView(generics.ListAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorListSerializer
-
-
-class BooksCreateView(generics.CreateAPIView):
-    queryset = Books.objects.all()
-    serializer_class = BooksCreateSerializer
-
-
-class BooksView(generics.RetrieveUpdateDestroyAPIView):
+class BooksViewSet(viewsets.ModelViewSet):
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
 
 
-class BooksListView(generics.ListAPIView):
-    queryset = Books.objects.all()
-    serializer_class = BooksListSerializer
-
-
-class ReadersCreateView(generics.CreateAPIView):
-    queryset = Readers.objects.all()
-    serializer_class = ReadersCreateSerializer
-
-
-class ReadersView(generics.RetrieveUpdateDestroyAPIView):
+class ReadersViewSet(viewsets.ModelViewSet):
     queryset = Readers.objects.all()
     serializer_class = ReadersSerializer
-
-
-class ReadersListView(generics.ListAPIView):
-    queryset = Readers.objects.all()
-    serializer_class = ReadersListSerializer
