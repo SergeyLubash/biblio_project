@@ -48,7 +48,6 @@ class ReadersCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Readers
-        read_only_fields = ("id", "first_name", "last_name", "phone", "status", "activ_books")
         fields = "__all__"
 
 
@@ -56,7 +55,7 @@ class ReadersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Readers
         fields = "__all__"
-        read_only_fields = ("id", "first_name", "last_name", "phone", "status", "activ_books")
+        # read_only_fields = ("id", "first_name", "last_name", "phone", "status", "activ_books")
 
 
 class ReadersListSerializer(serializers.ModelSerializer):
