@@ -7,14 +7,10 @@ from bibliotek.models import Author, Books, Readers
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = "__all__"
+        fields = ('id', 'first_name', 'last_name', 'photo', 'created_at', 'updated_at')
 
 
 class BooksSerializer(serializers.ModelSerializer):
-
-    author = SlugRelatedField(
-        slug_field='full_name', many=True, queryset=Author.objects.all()
-    )
 
     class Meta:
         model = Books
