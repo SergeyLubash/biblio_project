@@ -14,7 +14,6 @@ class BooksSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Books
-        depth = 1
         fields = ('id', 'title', 'description', 'number_pages', 'author', 'quantity', 'created_at', 'updated_at')
 
 
