@@ -12,11 +12,10 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class BooksSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        read_only=True,
+        queryset=Author.objects.all(),
         slug_field='last_name',
         many=True
     )
-
 
     class Meta:
         model = Books
@@ -26,7 +25,7 @@ class BooksSerializer(serializers.ModelSerializer):
 
 class ReadersSerializer(serializers.ModelSerializer):
     activ_books = serializers.SlugRelatedField(
-        read_only=True,
+        queryset=Books.objects.all(),
         slug_field='title',
         many=True
     )
