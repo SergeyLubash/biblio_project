@@ -21,8 +21,7 @@ class Books(models.Model):
     title = models.CharField(max_length=20, verbose_name='Название')
     description = models.TextField(max_length=300, verbose_name='Описание')
     number_pages = models.IntegerField(verbose_name='Кол-во станиц')
-    author = models.ManyToManyField(Author, help_text='Выберите автора книги',
-                                    verbose_name='Автор')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, help_text='Выберите автора книги', verbose_name='Автор')
     quantity = models.IntegerField(blank=True, verbose_name='Кол-во книг в библиотеке')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
@@ -52,3 +51,8 @@ class Readers(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    def display_activ_books(self):
+        return ', '.join([activ_book.title for activ_book in self.activ_books.all()])
+
+    display_activ_books.short_description = 'Активные книги'
