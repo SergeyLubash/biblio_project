@@ -40,9 +40,9 @@ class ReadersAdmin(admin.ModelAdmin):
         queryset.update(status=False)
 
     @admin.action(description='Удаления всех книг у пользователя')
-    def activ_books_clear(self, request, queryset: QuerySet):
-        clearing = queryset.model.pk
-        clearing.activ_books.clear()
+    def activ_books_clear(self, request, queryset):
+        for clearing in queryset:
+            clearing.activ_books.clear()
 
 
 admin.site.register(Readers, ReadersAdmin)
