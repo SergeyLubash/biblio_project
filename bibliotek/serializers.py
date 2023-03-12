@@ -58,6 +58,24 @@ class ReadersSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('В одни руки не более 3 книг')
         return attrs
 
+    def create(self, validated_data):
+        if validated_data['activ_books']:
+            for book in validated_data['activ_books']:
+                if book.quantity == 0:
+                    raise  serializers.ValidationError(f'Книги {book} нет в наличии')
+
+        books_data = validated_data.pop('activ_books')
+        reader = Readers.objects.create(**validated_data)
+        for book_data in books_data:
+            book = Books.objects.get(pk=book_data.id)
+            if book.quantity > 0:
+                book.quantity -= 1
+                book.save()
+                reader.activ_books.add(book)
+            else:
+                raise serializers.ValidationError(f'Книга {book.title} отсутствует')
+        return reader
+
     def update(self, instance, validated_data):
         if validated_data['activ_books']:
             for book in validated_data['activ_books']:
